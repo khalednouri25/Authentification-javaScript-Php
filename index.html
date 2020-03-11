@@ -22,8 +22,8 @@
    </div>
    
 
-    <button type="button" class="btn btn-primary" onclick="valider()">Valider</button>   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;   
-    <button class="btn btn-default" onclick="effacer()">Effacer</button></p>
+    <button type="button" class="btn btn-primary" onclick="valider()">Login</button>   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;   
+    <button class="btn btn-default" onclick="effacer()">Clear</button></p>
 </form>
  <div class="pe" id="div"><b></b></div>
 </div>
@@ -112,7 +112,7 @@ xhr.onreadystatechange=function() {
         alert("Your email or password is incorrect, please try again!")
     }
     else{
-        alert("Authentification successful, Welcome")
+        alert("Login successful, Welcome")
         $(".bodydiv").hide(2500);
     }
 }
