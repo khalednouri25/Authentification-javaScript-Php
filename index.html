@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inscription</title>
+                <meta charset="utf-8"/>
+        <meta name="viewport" content="user-scalable=no, width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+<body>
+
+
+<div class="bodydiv">
+<form class="form-horizontal"  role="form">
+    <h4>Please complete the following fields:</h4>
+    
+   <div class="form-group w-25">
+         <b>Email:</b>    <input type="text" class="form-control" name="mail" id="email">
+   </div>
+   <div class="form-group w-25">
+         <b>password: </b> <input class="form-control" type="password" id="ps">
+   </div>
+   
+
+    <button type="button" class="btn btn-primary" onclick="valider()">Valider</button>   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;   
+    <button class="btn btn-default" onclick="effacer()">Effacer</button></p>
+</form>
+ <div class="pe" id="div"><b></b></div>
+</div>
+<script>
+    function effacer()
+    {
+        document.getElementById("email").innerHTML=""
+        document.getElementById("ps").innerHTML=""
+    }
+  
+    function valider()
+    {
+    document.getElementById("div").innerHTML=""
+    var email =document.getElementById("email").value
+    var password=document.getElementById("ps").value
+    
+    if( email==="" && password ==="")
+    {
+    document.getElementById("div").innerHTML += "Fields are empty, please enter your email and password!"
+    document.getElementById("email").style.backgroundColor = "red";
+    document.getElementById("ps").style.backgroundColor = "red";
+    }
+    else
+    {
+    if(email==="" && password !=="")
+    {
+    document.getElementById("div").innerHTML += "You must enter you email!"
+    document.getElementById("email").style.backgroundColor = "red";
+    } 
+    else
+    {
+    if( email!=="" && password ==="")
+    {
+    document.getElementById("div").innerHTML += "You must enter you password!"
+    document.getElementById("ps").style.backgroundColor = "red";
+    }
+    else
+    {
+    /*check if @ is in email*/
+    var index_search_char1 = email.indexOf('@')
+    var index_search_char2 = email.indexOf('@', (index_search_char1+1))
+    if(index_search_char2 > 0)
+    {
+        /*there is more than one @ in the email, so error*/
+        document.getElementById("email").style.backgroundColor = "red";
+        document.getElementById("div").innerHTML="Your email must have only one '@', please enter a good email!"
+  
+    }
+    else 
+    {
+    if(index_search_char1 < 0)
+    {
+       /*there is no @ in the email, so error*/
+
+        document.getElementById("div").innerHTML="Your email must have a '@'',  please enter a good email!"
+        document.getElementById("email").style.backgroundColor = "red"; 
+    }
+    else
+    {
+    var index_of_point= email.indexOf('.')
+    if(index_of_point < 0)
+    {
+               /*there is no . in the email, so error*/
+        document.getElementById("div").innerHTML="You must enter a good email (you have forgetten a '.' )!"
+        document.getElementById("email").style.backgroundColor = "red";    
+
+    }
+    else
+    {
+//creating a XHR Object
+let xhr= new XMLHttpRequest();
+   let url="get_info_users.php";
+//open a connection
+xhr.open("POST",url, true)
+//send the request header i.e. which type of conent you are sending
+xhr.setRequestHeader("Content-Type", "application/json");
+//Create a state change callback
+xhr.onreadystatechange=function() {
+    
+  if(xhr.readyState==4 && xhr.status ===200)
+{
+    var myObject=JSON.parse(this.responseText)
+    myText=myObject.id
+    if(myText=== -1){
+    /*the email or password is incorrect, so error*/
+        alert("Your email or password is incorrect, please try again!")
+    }
+    else{
+        alert("Authentification successful, Welcome")
+        $(".bodydiv").hide(2500);
+    }
+}
+};
+
+//Converting JSON data to string
+var data=JSON.stringify({"mail": email, "password":password});
+//Sending data with the resquest
+xhr.send(data);
+    }
+    }
+    }
+    }
+    }
+    }
+ 
+}
+</script>
+</body>
+</html>

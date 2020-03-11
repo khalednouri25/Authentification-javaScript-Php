@@ -1,0 +1,36 @@
+.bodydiv{
+    background-color: rgb(15, 235, 150);
+    position: relative;
+    left: 40%;
+    top: 280px;
+    border:1px solid rgb(64, 250, 7);
+    width: 400px;
+    height: 300px;
+
+}
+.form-group{
+    position: relative;
+    left: 150px;
+}
+.btn{
+    position: relative;
+    left: 120px;
+}
+.form-horizontal{
+    position: relative;
+}
+#div{
+    position: relative;
+    width: 400px;
+    height: 30px;
+    left: 10px;
+    color:red;
+}
+.form-control{
+    position: relative;
+    width: 200px;
+    right:  40px;
+}
+body{
+    background-color: rgb(229, 238, 245);
+}
